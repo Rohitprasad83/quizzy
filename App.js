@@ -1,13 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, Suspense } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 
+const QuizScreen = React.lazy(() => import('./pages/quiz/QuizScreen'))
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Suspense fallback={<ActivityIndicator size="large" color="#00ff00" />}>
+        <QuizScreen />
+      </Suspense>
       <StatusBar style="auto" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +21,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
