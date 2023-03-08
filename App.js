@@ -1,14 +1,11 @@
 import React, { useEffect, useState, Suspense } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-
-const QuizScreen = React.lazy(() => import('./pages/quiz/QuizScreen'))
+import QuizScreen from './pages/quiz/QuizScreen'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Suspense fallback={<ActivityIndicator size="large" color="#00ff00" />}>
-        <QuizScreen />
-      </Suspense>
+      <QuizScreen />
       <StatusBar style="auto" />
     </View>
   )
