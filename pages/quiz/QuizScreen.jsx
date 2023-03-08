@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
-import React, { useEffect, useState, Suspense, ActivityIndicator } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 export default function QuizScreen() {
   const [isLoading, setLoading] = useState(true)
@@ -11,8 +18,9 @@ export default function QuizScreen() {
         'https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple'
       )
       const data = await response.json()
-      console.log(data)
-      setData(data)
+      console.log(data.results)
+      setLoading(false)
+      setData(data.results)
     } catch (error) {
       console.error(error)
     } finally {
@@ -28,29 +36,30 @@ export default function QuizScreen() {
         <ActivityIndicator />
       ) : (
         <FlatList
-          data={data.results}
+          data={data}
           keyExtractor={item => item.question}
           renderItem={({ item, index }) => (
             <View>
               <Text>
-                QUESTION {index + 1} OF {data.results.length}
+                QUESTION {index + 1} OF {5}
               </Text>
               <Text>{item.question}</Text>
               <Pressable>
                 <Text>{item.correct_answer}</Text>
               </Pressable>
               <Pressable>
-                <Text>{item.incorrect_answer[0]}</Text>
+                <Text>{item.incorrect_answers[0]}</Text>
               </Pressable>
               <Pressable>
-                <Text>{item.incorrect_answer[1]}</Text>
+                <Text>{item.incorrect_answers[1]}</Text>
               </Pressable>
               <Pressable>
-                <Text>{item.incorrect_answer[2]}</Text>
+                <Text>{item.incorrect_answers[2]}</Text>
               </Pressable>
             </View>
           )}
         />
+        // <Text>Will render list</Text>
       )}
     </View>
   )
