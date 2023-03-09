@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
 
-export default function CategoriesScreen() {
+export default function CategoriesScreen({ navigation }) {
   const catgeories = [
     'Mathematics',
     'Computers',
@@ -16,12 +17,13 @@ export default function CategoriesScreen() {
         keyExtractor={item => item}
         renderItem={({ item }) => (
           <View style={styles.category}>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('Quiz')}>
               <Text>{item}</Text>
             </Pressable>
           </View>
         )}
       />
+      <StatusBar style="auto" />
     </View>
   )
 }

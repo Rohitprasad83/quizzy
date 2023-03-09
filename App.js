@@ -1,5 +1,4 @@
 import React, { useEffect, useState, Suspense } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,13 +9,18 @@ import {
 } from 'react-native'
 import QuizScreen from './pages/quiz/QuizScreen'
 import CategoriesScreen from './pages/categories/CategoriesScreen'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 export default function App() {
+  const Stack = createNativeStackNavigator()
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <QuizScreen /> */}
-      <CategoriesScreen />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={CategoriesScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
