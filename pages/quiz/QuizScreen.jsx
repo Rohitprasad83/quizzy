@@ -7,9 +7,10 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-
+import Question from '../../components/Question'
 export default function QuizScreen() {
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
+  const [index, setIndex] = useState(0)
   const [data, setData] = useState([])
   const dummyData = [
     {
@@ -63,6 +64,36 @@ export default function QuizScreen() {
       type: 'multiple',
     },
   ]
+
+  function extractOptions(arr) {
+    const options = [
+      arr.correct_answer,
+      arr.incorrect_answers[0],
+      arr.incorrect_answers[1],
+      arr.incorrect_answers[2],
+    ]
+    return options
+  }
+
+  function shuffleOptions(options) {
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[options[i], options[j]] = [options[j], options[i]]
+    }
+    return options
+  }
+
+  function generateOptions(arr) {
+    const options = extractOptions(arr)
+    const shuffledOptions = shuffleOptions(options)
+    return shuffledOptions
+  }
+
+  function getNextIndex() {
+    if (index < 4) {
+      setIndex(prev => prev + 1)
+    }
+  }
   const getQuizQuestions = async () => {
     try {
       const response = await fetch(
@@ -86,30 +117,16 @@ export default function QuizScreen() {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <FlatList
-          data={dummyData}
-          keyExtractor={item => item.question}
-          renderItem={({ item, index }) => (
-            <View>
-              <Text>
-                QUESTION {index + 1} OF {5}
-              </Text>
-              <Text>{item.question}</Text>
-              <Pressable>
-                <Text>{item.correct_answer}</Text>
-              </Pressable>
-              <Pressable>
-                <Text>{item.incorrect_answers[0]}</Text>
-              </Pressable>
-              <Pressable>
-                <Text>{item.incorrect_answers[1]}</Text>
-              </Pressable>
-              <Pressable>
-                <Text>{item.incorrect_answers[2]}</Text>
-              </Pressable>
-            </View>
-          )}
-        />
+        <View>
+          <Question
+            question={dummyData[index].question}
+            options={generateOptions(dummyData[index])}
+            index={index}
+          />
+          <Pressable style={styles.nextButton} onPress={getNextIndex}>
+            <Text>Next</Text>
+          </Pressable>
+        </View>
       )}
     </View>
   )
@@ -121,5 +138,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  nextButton: {
+    height: 16,
+    borderRadius: 8,
+    flex: 1,
+    backgroundColor: '#B5C4CB',
   },
 })
