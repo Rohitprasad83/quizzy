@@ -86,13 +86,14 @@ export default function QuizScreen() {
 
   function generateOptions(arr) {
     const options = extractOptions(arr)
-    const shuffledOptions = shuffleOptions(options)
-    return shuffledOptions
+    // const shuffledOptions = shuffleOptions(options)
+    return options
   }
 
   function getNextIndex() {
-    if (index < 4) {
+    if (index < 4 && optionClicked) {
       setIndex(prev => prev + 1)
+      setOptionClicked(false)
     }
   }
   const getQuizQuestions = async () => {
@@ -130,8 +131,12 @@ export default function QuizScreen() {
               styles.nextButton,
               optionClicked && styles.nextColorIfOptionClicked,
             ]}
-            onPress={getNextIndex}>
-            <Text style={styles.nextText}>Next</Text>
+            onPress={() => {
+              getNextIndex()
+            }}>
+            <Text style={styles.nextText}>
+              {index === 4 ? 'Submit' : 'Next'}
+            </Text>
           </Pressable>
         </View>
       )}

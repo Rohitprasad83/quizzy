@@ -7,21 +7,48 @@ export default function Question({
   index,
   setOptionClicked,
 }) {
+  const [selectedOption, setSelectedOption] = useState(null)
+
+  function handleOptionSelected(option) {
+    setOptionClicked(true)
+    setSelectedOption(option)
+    console.log(option, selectedOption)
+  }
   return (
     <View style={styles.questionContainer}>
-      <Text>Question {index + 1} of 5</Text>
+      <Text style={styles.heading}>Question {index + 1} of 5</Text>
       <Text style={styles.question}>{question}</Text>
-      <Pressable style={styles.option} onPress={setOptionClicked}>
-        <Text>{options[0]}</Text>
+      <Pressable
+        style={[
+          styles.option,
+          selectedOption === options[0] && styles.selectedOptionStyle,
+        ]}
+        onPress={() => handleOptionSelected(options[0])}>
+        <Text style={styles.optionText}>{options[0]}</Text>
       </Pressable>
-      <Pressable style={styles.option} onPress={setOptionClicked}>
-        <Text>{options[1]}</Text>
+      <Pressable
+        style={[
+          styles.option,
+          selectedOption === options[1] && styles.selectedOptionStyle,
+        ]}
+        onPress={() => handleOptionSelected(options[1])}>
+        <Text style={styles.optionText}>{options[1]}</Text>
       </Pressable>
-      <Pressable style={styles.option} onPress={setOptionClicked}>
-        <Text>{options[2]}</Text>
+      <Pressable
+        style={[
+          styles.option,
+          selectedOption === options[2] && styles.selectedOptionStyle,
+        ]}
+        onPress={() => handleOptionSelected(options[2])}>
+        <Text style={styles.optionText}>{options[2]}</Text>
       </Pressable>
-      <Pressable style={styles.option} onPress={setOptionClicked}>
-        <Text>{options[3]}</Text>
+      <Pressable
+        style={[
+          styles.option,
+          selectedOption === options[3] && styles.selectedOptionStyle,
+        ]}
+        onPress={() => handleOptionSelected(options[3])}>
+        <Text style={styles.optionText}>{options[3]}</Text>
       </Pressable>
     </View>
   )
@@ -30,7 +57,10 @@ export default function Question({
 const styles = StyleSheet.create({
   questionContainer: {
     flex: 1,
-    paddingHorizontal: 32,
+  },
+  heading: {
+    fontWeight: 'normal',
+    fontSize: 18,
   },
   question: {
     fontWeight: 'bold',
@@ -39,10 +69,19 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   option: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#7A8573',
-    padding: 16,
+    paddingVertical: 20,
+    paddingHorizontal: 8,
     fontSize: 16,
     color: '#4B5955',
+    borderRadius: 18,
+    marginVertical: 8,
+  },
+  optionText: {
+    fontSize: 18,
+  },
+  selectedOptionStyle: {
+    backgroundColor: '#ADCD20',
   },
 })
