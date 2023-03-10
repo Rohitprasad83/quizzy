@@ -11,7 +11,58 @@ import React, { useEffect, useState } from 'react'
 export default function QuizScreen() {
   const [isLoading, setLoading] = useState(true)
   const [data, setData] = useState([])
-
+  const dummyData = [
+    {
+      category: 'Science: Computers',
+      correct_answer: '&#039;For&#039; loops',
+      difficulty: 'easy',
+      incorrect_answers: [
+        '&#039;If&#039; Statements',
+        '&#039;Do-while&#039; loops',
+        '&#039;While&#039; loops',
+      ],
+      question:
+        'In any programming language, what is the most common way to iterate through an array?',
+      type: 'multiple',
+    },
+    {
+      category: 'Science: Computers',
+      correct_answer: 'Nougat',
+      difficulty: 'easy',
+      incorrect_answers: ['Ice Cream Sandwich', 'Jelly Bean', 'Marshmallow'],
+      question:
+        'What is the code name for the mobile operating system Android 7.0?',
+      type: 'multiple',
+    },
+    {
+      category: 'Science: Computers',
+      correct_answer: '256',
+      difficulty: 'easy',
+      incorrect_answers: ['8', '1', '1024'],
+      question: 'How many values can a single byte represent?',
+      type: 'multiple',
+    },
+    {
+      category: 'Science: Computers',
+      correct_answer: '128 bits',
+      difficulty: 'easy',
+      incorrect_answers: ['32 bits', '64 bits', '128 bytes'],
+      question: 'How long is an IPv6 address?',
+      type: 'multiple',
+    },
+    {
+      category: 'Science: Computers',
+      correct_answer: 'Java Virtual Machine',
+      difficulty: 'easy',
+      incorrect_answers: [
+        'Java Vendor Machine',
+        'Java Visual Machine',
+        'Just Virtual Machine',
+      ],
+      question: 'What does the computer software acronym JVM stand for?',
+      type: 'multiple',
+    },
+  ]
   const getQuizQuestions = async () => {
     try {
       const response = await fetch(
@@ -28,7 +79,7 @@ export default function QuizScreen() {
     }
   }
   useEffect(() => {
-    getQuizQuestions()
+    // getQuizQuestions()
   }, [])
   return (
     <View style={styles.container}>
@@ -36,7 +87,7 @@ export default function QuizScreen() {
         <ActivityIndicator />
       ) : (
         <FlatList
-          data={data}
+          data={dummyData}
           keyExtractor={item => item.question}
           renderItem={({ item, index }) => (
             <View>
@@ -59,7 +110,6 @@ export default function QuizScreen() {
             </View>
           )}
         />
-        // <Text>Will render list</Text>
       )}
     </View>
   )
