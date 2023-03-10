@@ -148,15 +148,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 8,
   },
   nextButton: {
-    height: 16,
     borderRadius: 8,
     height: 64,
     marginBottom: 32,
     backgroundColor: '#B5C4CB',
+    flexShrink: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   nextColorIfOptionClicked: {
     backgroundColor: '#ADCD20',

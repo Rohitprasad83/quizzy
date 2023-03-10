@@ -56,7 +56,7 @@ export default function Question({
 
 const styles = StyleSheet.create({
   questionContainer: {
-    flex: 1,
+    // flex: 1,
   },
   heading: {
     fontWeight: 'normal',
