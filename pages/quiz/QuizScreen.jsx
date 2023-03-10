@@ -12,6 +12,7 @@ export default function QuizScreen() {
   const [isLoading, setLoading] = useState(false)
   const [index, setIndex] = useState(0)
   const [data, setData] = useState([])
+  const [optionClicked, setOptionClicked] = useState(false)
   const dummyData = [
     {
       category: 'Science: Computers',
@@ -121,10 +122,16 @@ export default function QuizScreen() {
           <Question
             question={dummyData[index].question}
             options={generateOptions(dummyData[index])}
+            setOptionClicked={setOptionClicked}
             index={index}
           />
-          <Pressable style={styles.nextButton} onPress={getNextIndex}>
-            <Text>Next</Text>
+          <Pressable
+            style={[
+              styles.nextButton,
+              optionClicked && styles.nextColorIfOptionClicked,
+            ]}
+            onPress={getNextIndex}>
+            <Text style={styles.nextText}>Next</Text>
           </Pressable>
         </View>
       )}
@@ -142,7 +149,17 @@ const styles = StyleSheet.create({
   nextButton: {
     height: 16,
     borderRadius: 8,
-    flex: 1,
+    height: 64,
+    marginBottom: 32,
     backgroundColor: '#B5C4CB',
+  },
+  nextColorIfOptionClicked: {
+    backgroundColor: '#ADCD20',
+  },
+  nextText: {
+    fontWeight: 'bold',
+    fontSize: 28,
+    color: '#071511',
+    textAlign: 'center',
   },
 })

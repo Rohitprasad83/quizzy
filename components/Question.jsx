@@ -1,22 +1,26 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
-export default function Question({ question, options, index }) {
-  console.log(options)
+export default function Question({
+  question,
+  options,
+  index,
+  setOptionClicked,
+}) {
   return (
     <View style={styles.questionContainer}>
       <Text>Question {index + 1} of 5</Text>
       <Text style={styles.question}>{question}</Text>
-      <Pressable style={styles.option}>
+      <Pressable style={styles.option} onPress={setOptionClicked}>
         <Text>{options[0]}</Text>
       </Pressable>
-      <Pressable style={styles.option}>
+      <Pressable style={styles.option} onPress={setOptionClicked}>
         <Text>{options[1]}</Text>
       </Pressable>
-      <Pressable style={styles.option}>
+      <Pressable style={styles.option} onPress={setOptionClicked}>
         <Text>{options[2]}</Text>
       </Pressable>
-      <Pressable style={styles.option}>
+      <Pressable style={styles.option} onPress={setOptionClicked}>
         <Text>{options[3]}</Text>
       </Pressable>
     </View>
