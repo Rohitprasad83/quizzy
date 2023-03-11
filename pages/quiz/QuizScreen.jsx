@@ -119,7 +119,7 @@ export default function QuizScreen() {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <View>
+        <View style={styles.questionContainer}>
           <Question
             question={dummyData[index].question}
             options={generateOptions(dummyData[index])}
@@ -149,6 +149,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 8,
+  },
+  questionContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
   },
   nextButton: {
     borderRadius: 8,

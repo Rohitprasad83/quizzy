@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   option: {
-    borderWidth: 2,
     borderColor: '#7A8573',
     paddingVertical: 20,
     paddingHorizontal: 8,
@@ -77,6 +76,14 @@ const styles = StyleSheet.create({
     color: '#4B5955',
     borderRadius: 18,
     marginVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 4,
   },
   optionText: {
     fontSize: 18,
