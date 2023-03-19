@@ -8,11 +8,14 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Question from '../../components/Question'
-export default function QuizScreen() {
+export default function QuizScreen({ navigation }) {
   const [isLoading, setLoading] = useState(false)
   const [index, setIndex] = useState(0)
   const [data, setData] = useState([])
   const [optionClicked, setOptionClicked] = useState(false)
+  const [answerSelected, setAnswerSelected] = useState('')
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
+
   const dummyData = [
     {
       category: 'Science: Computers',
@@ -111,6 +114,19 @@ export default function QuizScreen() {
       setLoading(false)
     }
   }
+
+  function handleNextButtonClick(source) {
+    let currentCorrectAnswerCount = correctAnswerCount
+    if (answerSelected === dummyData[index].correct_answer) {
+      currentCorrectAnswerCount = currentCorrectAnswerCount + 1
+      setCorrectAnswerCount(currentCorrectAnswerCount)
+    }
+    if (source.type === 'submit') {
+      navigation.navigate('Result', {
+        correctAnswers: currentCorrectAnswerCount,
+      })
+    }
+  }
   useEffect(() => {
     // getQuizQuestions()
   }, [])
@@ -124,20 +140,33 @@ export default function QuizScreen() {
             question={dummyData[index].question}
             options={generateOptions(dummyData[index])}
             setOptionClicked={setOptionClicked}
+            setAnswerSelected={setAnswerSelected}
             index={index}
           />
-          <Pressable
-            style={[
-              styles.nextButton,
-              optionClicked && styles.nextColorIfOptionClicked,
-            ]}
-            onPress={() => {
-              getNextIndex()
-            }}>
-            <Text style={styles.nextText}>
-              {index === 4 ? 'Submit' : 'Next'}
-            </Text>
-          </Pressable>
+          {index === 4 ? (
+            <Pressable
+              style={[
+                styles.nextButton,
+                optionClicked && styles.nextColorIfOptionClicked,
+              ]}
+              onPress={() => handleNextButtonClick({ type: 'submit' })}>
+              <Text style={styles.nextText}>Submit</Text>
+            </Pressable>
+          ) : (
+            <Pressable
+              style={[
+                styles.nextButton,
+                optionClicked && styles.nextColorIfOptionClicked,
+              ]}
+              onPress={() => {
+                handleNextButtonClick({ type: 'next' })
+                getNextIndex()
+              }}>
+              <Text style={styles.nextText}>
+                {index === 4 ? 'Submit' : 'Next'}
+              </Text>
+            </Pressable>
+          )}
         </View>
       )}
     </View>

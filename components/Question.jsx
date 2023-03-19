@@ -6,14 +6,16 @@ export default function Question({
   options,
   index,
   setOptionClicked,
+  setAnswerSelected,
 }) {
   const [selectedOption, setSelectedOption] = useState(null)
 
   function handleOptionSelected(option) {
     setOptionClicked(true)
     setSelectedOption(option)
-    console.log(option, selectedOption)
+    setAnswerSelected(option)
   }
+
   return (
     <View style={styles.questionContainer}>
       <Text style={styles.heading}>Question {index + 1} of 5</Text>
