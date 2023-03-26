@@ -17,7 +17,12 @@ export default function CategoriesScreen({ navigation }) {
         keyExtractor={item => item}
         renderItem={({ item }) => (
           <View style={styles.category}>
-            <Pressable onPress={() => navigation.navigate('Quiz')}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('Quiz', {
+                  quizType: item,
+                })
+              }>
               <Text>{item}</Text>
             </Pressable>
           </View>

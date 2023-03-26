@@ -8,14 +8,8 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Question from '../../components/Question'
-export default function QuizScreen({ navigation }) {
+export default function QuizScreen({ navigation, route }) {
   const [isLoading, setLoading] = useState(false)
-  const [index, setIndex] = useState(0)
-  const [data, setData] = useState([])
-  const [optionClicked, setOptionClicked] = useState(false)
-  const [answerSelected, setAnswerSelected] = useState('')
-  const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
-
   const dummyData = [
     {
       category: 'Science: Computers',
@@ -29,6 +23,12 @@ export default function QuizScreen({ navigation }) {
       question:
         'In any programming language, what is the most common way to iterate through an array?',
       type: 'multiple',
+      generatedOptions: [
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+      ],
     },
     {
       category: 'Science: Computers',
@@ -38,6 +38,12 @@ export default function QuizScreen({ navigation }) {
       question:
         'What is the code name for the mobile operating system Android 7.0?',
       type: 'multiple',
+      generatedOptions: [
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+      ],
     },
     {
       category: 'Science: Computers',
@@ -46,6 +52,12 @@ export default function QuizScreen({ navigation }) {
       incorrect_answers: ['8', '1', '1024'],
       question: 'How many values can a single byte represent?',
       type: 'multiple',
+      generatedOptions: [
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+      ],
     },
     {
       category: 'Science: Computers',
@@ -54,6 +66,12 @@ export default function QuizScreen({ navigation }) {
       incorrect_answers: ['32 bits', '64 bits', '128 bytes'],
       question: 'How long is an IPv6 address?',
       type: 'multiple',
+      generatedOptions: [
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+      ],
     },
     {
       category: 'Science: Computers',
@@ -66,8 +84,34 @@ export default function QuizScreen({ navigation }) {
       ],
       question: 'What does the computer software acronym JVM stand for?',
       type: 'multiple',
+      generatedOptions: [
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+        '&#039;If&#039; Statements',
+      ],
     },
   ]
+  const [index, setIndex] = useState(0)
+  const [data, setData] = useState(dummyData)
+  const [optionClicked, setOptionClicked] = useState(false)
+  const [answerSelected, setAnswerSelected] = useState('')
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
+
+  const APIS = {
+    Mathematics:
+      'https://opentdb.com/api.php?amount=5&category=19&difficulty=easy&type=multiple',
+    Computers:
+      'https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple',
+    Animals:
+      'https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple',
+    'General Knowledge':
+      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple',
+    'Science and Nature':
+      'https://opentdb.com/api.php?amount=5&category=17&difficulty=easy&type=multiple',
+  }
+
+  const { quizType } = route.params
 
   function extractOptions(arr) {
     const options = [
@@ -80,6 +124,7 @@ export default function QuizScreen({ navigation }) {
   }
 
   function shuffleOptions(options) {
+    console.log('from shuffledOptions', options)
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[options[i], options[j]] = [options[j], options[i]]
@@ -89,8 +134,8 @@ export default function QuizScreen({ navigation }) {
 
   function generateOptions(arr) {
     const options = extractOptions(arr)
-    // const shuffledOptions = shuffleOptions(options)
-    return options
+    const shuffledOptions = shuffleOptions(options)
+    return shuffledOptions
   }
 
   function getNextIndex() {
@@ -99,15 +144,23 @@ export default function QuizScreen({ navigation }) {
       setOptionClicked(false)
     }
   }
-  const getQuizQuestions = async () => {
+  const getQuizQuestions = async quizType => {
+    setLoading(true)
     try {
-      const response = await fetch(
-        'https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple'
-      )
+      const url = APIS[quizType]
+      const response = await fetch(url)
       const data = await response.json()
       console.log(data.results)
-      setLoading(false)
-      setData(data.results)
+      let transformedData = data.results
+      transformedData.forEach(item => {
+        item.generatedOptions = [item.correct_answer, ...item.incorrect_answers]
+      })
+
+      // transformedData.forEach(item => {
+      //   item.generateOptions = shuffleOptions(item.generateOptions)
+      // })
+      console.log('transformedData', transformedData)
+      setData(transformedData)
     } catch (error) {
       console.error(error)
     } finally {
@@ -128,8 +181,8 @@ export default function QuizScreen({ navigation }) {
     }
   }
   useEffect(() => {
-    // getQuizQuestions()
-  }, [])
+    getQuizQuestions(quizType)
+  }, [quizType])
   return (
     <View style={styles.container}>
       {isLoading ? (
@@ -137,8 +190,8 @@ export default function QuizScreen({ navigation }) {
       ) : (
         <View style={styles.questionContainer}>
           <Question
-            question={dummyData[index].question}
-            options={generateOptions(dummyData[index])}
+            question={data[index].question}
+            options={data[index].generatedOptions}
             setOptionClicked={setOptionClicked}
             setAnswerSelected={setAnswerSelected}
             index={index}
