@@ -113,16 +113,6 @@ export default function QuizScreen({ navigation, route }) {
 
   const { quizType } = route.params
 
-  function extractOptions(arr) {
-    const options = [
-      arr.correct_answer,
-      arr.incorrect_answers[0],
-      arr.incorrect_answers[1],
-      arr.incorrect_answers[2],
-    ]
-    return options
-  }
-
   function shuffleOptions(options) {
     console.log('from shuffledOptions', options)
     for (let i = options.length - 1; i > 0; i--) {
@@ -130,12 +120,6 @@ export default function QuizScreen({ navigation, route }) {
       ;[options[i], options[j]] = [options[j], options[i]]
     }
     return options
-  }
-
-  function generateOptions(arr) {
-    const options = extractOptions(arr)
-    const shuffledOptions = shuffleOptions(options)
-    return shuffledOptions
   }
 
   function getNextIndex() {
@@ -170,7 +154,7 @@ export default function QuizScreen({ navigation, route }) {
 
   function handleNextButtonClick(source) {
     let currentCorrectAnswerCount = correctAnswerCount
-    if (answerSelected === dummyData[index].correct_answer) {
+    if (answerSelected === data[index].correct_answer) {
       currentCorrectAnswerCount = currentCorrectAnswerCount + 1
       setCorrectAnswerCount(currentCorrectAnswerCount)
     }
