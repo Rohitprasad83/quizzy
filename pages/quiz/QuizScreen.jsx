@@ -156,9 +156,9 @@ export default function QuizScreen({ navigation, route }) {
         item.generatedOptions = [item.correct_answer, ...item.incorrect_answers]
       })
 
-      // transformedData.forEach(item => {
-      //   item.generateOptions = shuffleOptions(item.generateOptions)
-      // })
+      transformedData.forEach(item => {
+        item.generatedOptions = shuffleOptions(item.generatedOptions)
+      })
       console.log('transformedData', transformedData)
       setData(transformedData)
     } catch (error) {
