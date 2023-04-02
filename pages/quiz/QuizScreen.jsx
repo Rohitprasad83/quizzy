@@ -112,9 +112,7 @@ export default function QuizScreen({ navigation, route }) {
   }
 
   const { quizType } = route.params
-  console.log(quizType)
   function shuffleOptions(options) {
-    console.log('from shuffledOptions', options)
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[options[i], options[j]] = [options[j], options[i]]
@@ -134,7 +132,6 @@ export default function QuizScreen({ navigation, route }) {
       const url = APIS[quizType]
       const response = await fetch(url)
       const data = await response.json()
-      console.log(data.results)
       let transformedData = data.results
       transformedData.forEach(item => {
         item.generatedOptions = [item.correct_answer, ...item.incorrect_answers]
@@ -143,7 +140,6 @@ export default function QuizScreen({ navigation, route }) {
       transformedData.forEach(item => {
         item.generatedOptions = shuffleOptions(item.generatedOptions)
       })
-      console.log('transformedData', transformedData)
       setData(transformedData)
     } catch (error) {
       console.error(error)

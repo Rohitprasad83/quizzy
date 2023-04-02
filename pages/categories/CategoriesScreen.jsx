@@ -50,7 +50,7 @@ export default function CategoriesScreen({ navigation }) {
             <Pressable
               onPress={() =>
                 navigation.navigate('Quiz', {
-                  quizType: item.text,
+                  quizType: item.name,
                 })
               }
               style={styles.categoryItem}>
