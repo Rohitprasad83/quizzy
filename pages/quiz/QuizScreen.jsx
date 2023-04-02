@@ -112,7 +112,7 @@ export default function QuizScreen({ navigation, route }) {
   }
 
   const { quizType } = route.params
-
+  console.log(quizType)
   function shuffleOptions(options) {
     console.log('from shuffledOptions', options)
     for (let i = options.length - 1; i > 0; i--) {

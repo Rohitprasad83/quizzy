@@ -39,6 +39,9 @@ export default function CategoriesScreen({ navigation }) {
   ]
   return (
     <View style={styles.categoryContainer}>
+      <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 30 }}>
+        Choose your category to play the quiz!
+      </Text>
       <FlatList
         data={catgeories}
         keyExtractor={item => item.name}
@@ -47,7 +50,7 @@ export default function CategoriesScreen({ navigation }) {
             <Pressable
               onPress={() =>
                 navigation.navigate('Quiz', {
-                  quizType: item,
+                  quizType: item.text,
                 })
               }
               style={styles.categoryItem}>
@@ -69,10 +72,10 @@ const styles = StyleSheet.create({
   category: {
     flex: 1,
     backgroundColor: '#fff',
+    marginHorizontal: 12,
     borderWidth: 1,
     borderColor: '#B5C4CB',
     marginVertical: 8,
-    marginHorizontal: 12,
     borderRadius: 16,
     padding: 20,
   },
