@@ -150,6 +150,9 @@ export default function QuizScreen({ navigation, route }) {
 
   function handleNextButtonClick(source) {
     let currentCorrectAnswerCount = correctAnswerCount
+    const dataWithSelectedOption = data
+    dataWithSelectedOption[index].answerSelected = answerSelected
+    setData(dataWithSelectedOption)
     if (answerSelected === data[index].correct_answer) {
       currentCorrectAnswerCount = currentCorrectAnswerCount + 1
       setCorrectAnswerCount(currentCorrectAnswerCount)
@@ -157,6 +160,7 @@ export default function QuizScreen({ navigation, route }) {
     if (source.type === 'submit') {
       navigation.navigate('Result', {
         correctAnswers: currentCorrectAnswerCount,
+        quizData: data,
       })
     }
   }
