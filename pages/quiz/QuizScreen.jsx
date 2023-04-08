@@ -160,7 +160,7 @@ export default function QuizScreen({ navigation, route }) {
     if (source.type === 'submit') {
       navigation.navigate('Result', {
         correctAnswers: currentCorrectAnswerCount,
-        data: data,
+        quizData: data,
       })
     }
   }
