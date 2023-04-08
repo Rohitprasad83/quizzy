@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, BackHandler, Pressable } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  BackHandler,
+  Pressable,
+  ScrollView,
+} from 'react-native'
+import ShowAnswers from '../../components/ShowAnswers'
 export default function ResultScreen({ navigation, route }) {
   const { correctAnswers, quizData } = route.params
   const [showAnswers, setShowAnswers] = useState(false)
-  console.log(route.params)
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -18,14 +25,14 @@ export default function ResultScreen({ navigation, route }) {
 
   if (showAnswers) {
     return (
-      <View>
-        <Text>This will be the Answers</Text>
+      <ScrollView style={{ paddingBottom: 20, marginBottom: 20 }}>
+        <ShowAnswers data={quizData} />
         <Pressable
           style={styles.reviewButton}
           onPress={() => setShowAnswers(false)}>
           <Text style={styles.reviewButtonText}>Show Score</Text>
         </Pressable>
-      </View>
+      </ScrollView>
     )
   }
 
@@ -48,6 +55,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // overflo: 'scroll',
+    // height: 1000,
   },
   resultText: {
     fontSize: 20,
