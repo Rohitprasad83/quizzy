@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { StyleSheet, Text, View, BackHandler } from 'react-native'
 export default function ResultScreen({ navigation, route }) {
-  const { correctAnswers } = route.params
+  const { correctAnswers, data } = route.params
+  console.log(data)
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
