@@ -1,41 +1,40 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  FlatList,
-  ScrollView,
-} from 'react-native'
+import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native'
 import React from 'react'
 
-export default function ShowAnswers({ data }) {
+export default function ShowAnswers({ data, setShowAnswers }) {
   return (
-    <View style={styles.answerContainer}>
-      <FlatList
-        data={data}
-        keyExtractor={item => item.question}
-        renderItem={({ item }) => (
-          <View>
-            <Text style={styles.question}>{item.question}</Text>
-            <Text style={[styles.optionStyle, styles.correctAnswer]}>
-              {item.correct_answer}
+    <FlatList
+      data={data}
+      keyExtractor={item => item.question}
+      style={styles.answerContainer}
+      renderItem={({ item }) => (
+        <View>
+          <Text style={styles.question}>{item.question}</Text>
+          <Text style={[styles.optionStyle, styles.correctAnswer]}>
+            {item.correct_answer}
+          </Text>
+          {item.answerSelected !== item.correct_answer && (
+            <Text style={[styles.optionStyle, styles.incorrectAnswer]}>
+              {item.answerSelected}
             </Text>
-            {item.answerSelected !== item.correct_answer && (
-              <Text style={[styles.optionStyle, styles.incorrectAnswer]}>
-                {item.answerSelected}
-              </Text>
-            )}
-          </View>
-        )}
-      />
-    </View>
+          )}
+        </View>
+      )}
+      ListFooterComponent={() => (
+        <Pressable
+          style={styles.reviewButton}
+          onPress={() => setShowAnswers(false)}>
+          <Text style={styles.reviewButtonText}>Show Score</Text>
+        </Pressable>
+      )}
+    />
   )
 }
 
 const styles = StyleSheet.create({
   answerContainer: {
-    marginHorizontal: 4,
-    marginVertical: 8,
+    marginHorizontal: 8,
+    flex: 1,
   },
   question: {
     fontSize: 18,
@@ -52,5 +51,17 @@ const styles = StyleSheet.create({
   },
   incorrectAnswer: {
     backgroundColor: '#ff0000',
+  },
+  reviewButton: {
+    padding: 10,
+    borderRadius: 16,
+    backgroundColor: '#071511',
+    width: 250,
+    marginTop: 10,
+  },
+  reviewButtonText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
   },
 })

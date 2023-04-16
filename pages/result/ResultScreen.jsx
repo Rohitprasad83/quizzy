@@ -5,7 +5,7 @@ import {
   View,
   BackHandler,
   Pressable,
-  ScrollView,
+  SafeAreaView,
 } from 'react-native'
 import ShowAnswers from '../../components/ShowAnswers'
 export default function ResultScreen({ navigation, route }) {
@@ -24,16 +24,7 @@ export default function ResultScreen({ navigation, route }) {
   }, [navigation])
 
   if (showAnswers) {
-    return (
-      <ScrollView style={{ paddingBottom: 20, marginBottom: 20 }}>
-        <ShowAnswers data={quizData} />
-        <Pressable
-          style={styles.reviewButton}
-          onPress={() => setShowAnswers(false)}>
-          <Text style={styles.reviewButtonText}>Show Score</Text>
-        </Pressable>
-      </ScrollView>
-    )
+    return <ShowAnswers data={quizData} setShowAnswers={setShowAnswers} />
   }
 
   return (
@@ -55,8 +46,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // overflo: 'scroll',
-    // height: 1000,
   },
   resultText: {
     fontSize: 20,
@@ -67,7 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#071511',
     width: 250,
-    marginTop: 20,
+    marginTop: 10,
   },
   reviewButtonText: {
     fontSize: 20,
