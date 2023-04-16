@@ -170,7 +170,10 @@ export default function QuizScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator
+          color="rgb(144, 202, 249)"
+          style={styles.activityIndicator}
+        />
       ) : (
         <View style={styles.questionContainer}>
           <Question
@@ -211,6 +214,11 @@ export default function QuizScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  activityIndicator: {
+    flex: 1,
+    alignSelf: 'center',
+    transform: [{ scaleX: 4 }, { scaleY: 4 }],
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
