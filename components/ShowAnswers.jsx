@@ -8,7 +8,7 @@ export default function ShowAnswers({ data, setShowAnswers }) {
       keyExtractor={item => item.question}
       style={styles.answerContainer}
       renderItem={({ item }) => (
-        <View>
+        <View style={styles.questionContainer}>
           <Text style={styles.question}>{item.question}</Text>
           <Text style={[styles.optionStyle, styles.correctAnswer]}>
             {item.correct_answer}
@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     flex: 1,
   },
+  questionContainer: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 4,
+    marginVertical: 4,
+  },
   question: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -58,6 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#071511',
     width: 250,
     marginTop: 10,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   reviewButtonText: {
     fontSize: 20,

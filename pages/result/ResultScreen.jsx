@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  BackHandler,
-  Pressable,
-  SafeAreaView,
-} from 'react-native'
+import { StyleSheet, Text, View, BackHandler, Pressable } from 'react-native'
 import ShowAnswers from '../../components/ShowAnswers'
 export default function ResultScreen({ navigation, route }) {
   const { correctAnswers, quizData } = route.params
@@ -33,9 +26,14 @@ export default function ResultScreen({ navigation, route }) {
         You got {correctAnswers} of 5 answers correct!
       </Text>
       <Pressable
-        style={styles.reviewButton}
+        style={[styles.Button, styles.reviewButton]}
         onPress={() => setShowAnswers(true)}>
-        <Text style={styles.reviewButtonText}>Review Answers</Text>
+        <Text style={styles.buttonText}>Review Answers</Text>
+      </Pressable>
+      <Pressable
+        style={[styles.Button, styles.playMoreButton]}
+        onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.buttonText}>Play More</Text>
       </Pressable>
     </View>
   )
@@ -51,16 +49,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  reviewButton: {
+  Button: {
     padding: 10,
     borderRadius: 16,
-    backgroundColor: '#071511',
     width: 250,
     marginTop: 10,
   },
-  reviewButtonText: {
+  reviewButton: {
+    backgroundColor: '#071511',
+  },
+  buttonText: {
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
+  },
+  playMoreButton: {
+    backgroundColor: '#007bff',
   },
 })
