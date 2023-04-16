@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     width: 250,
     marginTop: 10,
+    shadowOpacity: 0.25,
+    elevation: 4,
   },
   reviewButton: {
     backgroundColor: 'rgb(102, 187, 106)',

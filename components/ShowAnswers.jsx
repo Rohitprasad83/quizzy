@@ -52,12 +52,14 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 16,
     marginVertical: 8,
+    shadowOpacity: 0.25,
+    elevation: 1,
   },
   correctAnswer: {
-    backgroundColor: '#ADCD20',
+    backgroundColor: 'rgb(102, 187, 106)',
   },
   incorrectAnswer: {
-    backgroundColor: '#ff0000',
+    backgroundColor: 'rgb(244, 67, 54)',
   },
   reviewButton: {
     padding: 10,
@@ -67,6 +69,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'center',
     marginBottom: 20,
+    shadowOpacity: 0.25,
+    elevation: 4,
   },
   reviewButtonText: {
     fontSize: 20,
