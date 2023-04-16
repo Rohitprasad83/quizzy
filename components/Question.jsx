@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   selectedOptionStyle: {
-    backgroundColor: '#ADCD20',
+    backgroundColor: 'rgb(144, 202, 249)',
   },
 })

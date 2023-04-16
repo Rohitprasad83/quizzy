@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  BackHandler,
-  Pressable,
-  ScrollView,
-} from 'react-native'
+import { StyleSheet, Text, View, BackHandler, Pressable } from 'react-native'
 import ShowAnswers from '../../components/ShowAnswers'
 export default function ResultScreen({ navigation, route }) {
   const { correctAnswers, quizData } = route.params
@@ -24,16 +17,7 @@ export default function ResultScreen({ navigation, route }) {
   }, [navigation])
 
   if (showAnswers) {
-    return (
-      <ScrollView style={{ paddingBottom: 20, marginBottom: 20 }}>
-        <ShowAnswers data={quizData} />
-        <Pressable
-          style={styles.reviewButton}
-          onPress={() => setShowAnswers(false)}>
-          <Text style={styles.reviewButtonText}>Show Score</Text>
-        </Pressable>
-      </ScrollView>
-    )
+    return <ShowAnswers data={quizData} setShowAnswers={setShowAnswers} />
   }
 
   return (
@@ -42,9 +26,14 @@ export default function ResultScreen({ navigation, route }) {
         You got {correctAnswers} of 5 answers correct!
       </Text>
       <Pressable
-        style={styles.reviewButton}
+        style={[styles.Button, styles.reviewButton]}
         onPress={() => setShowAnswers(true)}>
-        <Text style={styles.reviewButtonText}>Review Answers</Text>
+        <Text style={styles.buttonText}>Review Answers</Text>
+      </Pressable>
+      <Pressable
+        style={[styles.Button, styles.playMoreButton]}
+        onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.buttonText}>Play More</Text>
       </Pressable>
     </View>
   )
@@ -55,23 +44,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // overflo: 'scroll',
-    // height: 1000,
   },
   resultText: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  reviewButton: {
+  Button: {
     padding: 10,
     borderRadius: 16,
-    backgroundColor: '#071511',
     width: 250,
-    marginTop: 20,
+    marginTop: 10,
+    shadowOpacity: 0.25,
+    elevation: 4,
   },
-  reviewButtonText: {
+  reviewButton: {
+    backgroundColor: 'rgb(102, 187, 106)',
+  },
+  buttonText: {
     fontSize: 20,
-    color: 'white',
+    color: 'rgba(0, 0, 0, 0.87)',
     textAlign: 'center',
+  },
+  playMoreButton: {
+    backgroundColor: 'rgb(144, 202, 249)',
   },
 })
