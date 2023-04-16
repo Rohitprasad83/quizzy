@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   reviewButton: {
     padding: 10,
     borderRadius: 16,
-    backgroundColor: '#071511',
+    backgroundColor: 'rgb(102, 187, 106)',
     width: 250,
     marginTop: 10,
     alignSelf: 'center',
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   reviewButtonText: {
     fontSize: 20,
-    color: 'white',
+    color: 'rgba(0, 0, 0, 0.87)',
     textAlign: 'center',
   },
 })

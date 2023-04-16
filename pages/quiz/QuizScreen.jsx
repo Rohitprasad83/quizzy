@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nextColorIfOptionClicked: {
-    backgroundColor: '#ADCD20',
+    backgroundColor: 'rgb(144, 202, 249)',
   },
   nextText: {
     fontWeight: 'bold',

@@ -56,14 +56,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   reviewButton: {
-    backgroundColor: '#071511',
+    backgroundColor: 'rgb(102, 187, 106)',
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
+    color: 'rgba(0, 0, 0, 0.87)',
     textAlign: 'center',
   },
   playMoreButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: 'rgb(144, 202, 249)',
   },
 })
