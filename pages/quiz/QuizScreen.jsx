@@ -99,16 +99,12 @@ export default function QuizScreen({ navigation, route }) {
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
 
   const APIS = {
-    Mathematics:
-      'https://opentdb.com/api.php?amount=5&category=19&difficulty=easy&type=multiple',
-    Computers:
-      'https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple',
-    Animals:
-      'https://opentdb.com/api.php?amount=5&category=27&difficulty=easy&type=multiple',
+    Mathematics: 'https://quizzybackend-nd25.onrender.com/mathematics',
+    Computers: 'https://quizzybackend-nd25.onrender.com/computers',
+    Animals: 'https://quizzybackend-nd25.onrender.com/animals',
     'General Knowledge':
-      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple',
-    'Science and Nature':
-      'https://opentdb.com/api.php?amount=5&category=17&difficulty=easy&type=multiple',
+      'https://quizzybackend-nd25.onrender.com/generalknowledge',
+    'Science and Nature': 'https://quizzybackend-nd25.onrender.com/nature',
   }
 
   const { quizType } = route.params
@@ -132,7 +128,7 @@ export default function QuizScreen({ navigation, route }) {
       const url = APIS[quizType]
       const response = await fetch(url)
       const data = await response.json()
-      let transformedData = data.results
+      let transformedData = data.data
       transformedData.forEach(item => {
         item.generatedOptions = [item.correct_answer, ...item.incorrect_answers]
       })
